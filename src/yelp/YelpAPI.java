@@ -79,3 +79,24 @@ public class YelpAPI {
 		queryAPI(yelpApi, 37.38, -122.08);
 	}
 }
+
+// Yelp API v2 was deprectaed on June 30, 2018, v3 is currently in use.
+
+// https://www.yelp.com/developers/documentation/v3/authentication
+
+// public String searchForBusinessesByLocation(double lat, double lon) throws Exception {
+// 	OkHttpClient client = new OkHttpClient.Builder().build();
+	
+// 	HttpUrl.Builder urlBuilder = HttpUrl.parse("https://api.yelp.com/v3/businesses/search?term=restaurants").newBuilder();
+// 	urlBuilder.addQueryParameter("latitude", lat + "");
+// 	urlBuilder.addQueryParameter("longitude", lon + "");
+// 	urlBuilder.addQueryParameter("limit", String.valueOf(SEARCH_LIMIT));
+// 	String url = urlBuilder.build().toString();
+
+// 	Request request= new Request.Builder().url(url).header("Authorization", "Bearer " + API_KEY).build();
+// 	Call call = client.newCall(request);
+// 	return call.execute().body().string();
+// }
+
+// Also the structure of JSON output was modified, so are the names of some attributes.
+// Therefore some modifications are needed under /src/model/Restaurant/java

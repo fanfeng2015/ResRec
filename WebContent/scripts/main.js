@@ -20,8 +20,8 @@
 		validateSession();
 
 		// onSessionValid({
-		// 	user_id : '1111',
-		// 	name : 'Fan Feng'
+		// 	user_id: '1111',
+		// 	name: 'Fan Feng'
 		// });
 	}
 

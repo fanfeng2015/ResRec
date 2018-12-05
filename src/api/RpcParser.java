@@ -13,7 +13,6 @@ import org.json.JSONObject;
 /**
  * A utility class to handle rpc related parsing logics.
  */
-
 public class RpcParser {
 
 	public static JSONObject parseInput(HttpServletRequest request) {

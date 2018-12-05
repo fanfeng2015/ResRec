@@ -28,7 +28,7 @@ public class DBYelpImport {
 			if (conn == null) {
 				return;
 			}
-			// Step 1 Drop tables in case they exist.
+			// Step 1: Drop tables in case they exist.
 			Statement stmt = conn.createStatement();
 
 			String sql = "DROP TABLE IF EXISTS history";
@@ -40,6 +40,7 @@ public class DBYelpImport {
 			sql = "DROP TABLE IF EXISTS users";
 			stmt.executeUpdate(sql);
 
+			// Step 2: Create tables
 			sql = "CREATE TABLE restaurants " + "(business_id VARCHAR(255) NOT NULL, " + " name VARCHAR(255), "
 					+ "categories VARCHAR(255), " + "city VARCHAR(255), " + "state VARCHAR(255), " + "stars FLOAT,"
 					+ "full_address VARCHAR(255), " + "latitude FLOAT, " + " longitude FLOAT, "
@@ -58,11 +59,9 @@ public class DBYelpImport {
 					+ "FOREIGN KEY (user_id) REFERENCES users(user_id))";
 			stmt.executeUpdate(sql);
 
-			// Step 3: insert data
+			// Step 3: Insert data
 			// Create a fake user
 			sql = "INSERT INTO users " + "VALUES (\"1111\", \"3229c1097c00d497a0fd282d586be050\", \"Fan\", \"Feng\")";
-			//			sql = "INSERT INTO users " + "VALUES (\"1111\", \"934b535800b1cba8f96a5d72f72f1611\", \"Fan\", \"Feng\")";
-
 			
 			System.out.println("\nDBYelpImport executing query:\n" + sql);
 			stmt.executeUpdate(sql);

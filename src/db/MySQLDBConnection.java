@@ -28,10 +28,8 @@ public class MySQLDBConnection implements DBConnection {
 
 	public MySQLDBConnection(String url) {
 		try {
-			// Forcing the class representing the MySQL driver to load and
-			// initialize.
-			// The newInstance() call is a work around for some broken Java
-			// implementations
+			// Force the class representing the MySQL driver to load and initialize.
+			// The newInstance() call is a work around for some broken Java implementations.
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection(url);
 		} catch (Exception e) {
@@ -44,7 +42,8 @@ public class MySQLDBConnection implements DBConnection {
 		if (conn != null) {
 			try {
 				conn.close();
-			} catch (Exception e) { /* ignored */
+			} catch (Exception e) { 
+				/* ignored */
 			}
 		}
 	}
@@ -82,7 +81,7 @@ public class MySQLDBConnection implements DBConnection {
 					outputObject.put("is_visited", false);
 				}
 
-				String sql = "INSERT IGNORE INTO restaurants VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+				String sql = "INSERT IGNORE INTO restaurants VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = conn.prepareStatement(sql);
 				statement.setString(1, businessId);
 				statement.setString(2, name);
@@ -102,7 +101,6 @@ public class MySQLDBConnection implements DBConnection {
 			return new JSONArray(list);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-
 		}
 		return null;
 	}

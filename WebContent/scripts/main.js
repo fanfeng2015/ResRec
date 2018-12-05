@@ -1,5 +1,4 @@
 (function() {
-
 	/**
 	 * Variables
 	 */
@@ -16,8 +15,7 @@
 		$('login-btn').addEventListener('click', login);
 		$('nearby-btn').addEventListener('click', loadNearbyRestaurants);
 		$('fav-btn').addEventListener('click', loadFavoriteRestaurants);
-		$('recommend-btn')
-				.addEventListener('click', loadRecommendedRestaurants);
+		$('recommend-btn').addEventListener('click', loadRecommendedRestaurants);
 
 		validateSession();
 
@@ -94,7 +92,7 @@
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(onPositionUpdated,
 					onLoadPositionFailed, {
-						maximumAge : 60000
+						maximumAge: 60000
 					});
 			showLoadingMessage('Retrieving your location...');
 		} else {
@@ -135,7 +133,6 @@
 	// -----------------------------------
 	// Login
 	// -----------------------------------
-
 	function login() {
 		var username = $('username').value;
 		var password = $('password').value;
@@ -150,7 +147,6 @@
 		// successful callback
 		function(res) {
 			var result = JSON.parse(res);
-
 			// successfully logged in
 			if (result.status === 'OK') {
 				onSessionValid(result);
@@ -173,7 +169,6 @@
 	// -----------------------------------
 	// Helper Functions
 	// -----------------------------------
-
 	/**
 	 * A helper function that makes a navigation button active
 	 *
@@ -282,8 +277,7 @@
 		if (data === null) {
 			xhr.send();
 		} else {
-			xhr.setRequestHeader("Content-Type",
-					"application/json;charset=utf-8");
+			xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
 			xhr.send(data);
 		}
 	}
@@ -291,7 +285,6 @@
 	// -------------------------------------
 	// AJAX call server-side APIs
 	// -------------------------------------
-
 	/**
 	 * API #1 Load the nearby restaurants API end point: [GET]
 	 * /Dashi/restaurants?user_id=1111&lat=37.38&lon=-122.08
@@ -395,8 +388,8 @@
 	 * @param business_id -
 	 *            The restaurant business id
 	 *
-	 * API end point: [POST]/[DELETE] /Dashi/history request json data: {
-	 * user_id: 1111, visited: [a_list_of_business_ids] }
+	 * API end point: [POST]/[DELETE] /Dashi/history request json data: 
+	 * { user_id: 1111, visited: [a_list_of_business_ids] }
 	 */
 	function changeFavoriteRestaurant(business_id) {
 		// Check whether this restaurant has been visited or not
@@ -407,8 +400,8 @@
 		// The request parameters
 		var url = './history';
 		var req = JSON.stringify({
-			user_id : user_id,
-			visited : [ business_id ]
+			user_id: user_id,
+			visited: [ business_id ]
 		});
 		var method = isVisited ? 'POST' : 'DELETE';
 
@@ -427,7 +420,6 @@
 	// -------------------------------------
 	// Create restaurant list
 	// -------------------------------------
-
 	/**
 	 * List restaurants
 	 *
@@ -459,8 +451,8 @@
 
 		// create the <li> tag and specify the id and class attributes
 		var li = $('li', {
-			id : 'restaurant-' + business_id,
-			className : 'restaurant'
+			id: 'restaurant-' + business_id,
+			className: 'restaurant'
 		});
 
 		// set the data attribute
@@ -469,7 +461,7 @@
 
 		// restaurant image
 		li.appendChild($('img', {
-			src : restaurant.image_url
+			src: restaurant.image_url
 		}));
 
 		// section
@@ -477,34 +469,34 @@
 
 		// title
 		var title = $('a', {
-			href : restaurant.url,
-			target : '_blank',
-			className : 'restaurant-name'
+			href: restaurant.url,
+			target: '_blank',
+			className: 'restaurant-name'
 		});
 		title.innerHTML = restaurant.name;
 		section.appendChild(title);
 
 		// category
 		var category = $('p', {
-			className : 'restaurant-category'
+			className: 'restaurant-category'
 		});
 		category.innerHTML = 'Category: ' + restaurant.categories.join(', ');
 		section.appendChild(category);
 
 		// stars
 		var stars = $('div', {
-			className : 'stars'
+			className: 'stars'
 		});
 		for (var i = 0; i < restaurant.stars; i++) {
 			var star = $('i', {
-				className : 'fa fa-star'
+				className: 'fa fa-star'
 			});
 			stars.appendChild(star);
 		}
 
 		if (('' + restaurant.stars).match(/\.5$/)) {
 			stars.appendChild($('i', {
-				className : 'fa fa-star-half-o'
+				className: 'fa fa-star-half-o'
 			}));
 		}
 
@@ -514,7 +506,7 @@
 
 		// address
 		var address = $('p', {
-			className : 'restaurant-address'
+			className: 'restaurant-address'
 		});
 
 		address.innerHTML = restaurant.full_address.replace(/,/g, '<br/>');
@@ -522,7 +514,7 @@
 
 		// favorite link
 		var favLink = $('p', {
-			className : 'fav-link'
+			className: 'fav-link'
 		});
 
 		favLink.onclick = function() {
@@ -530,8 +522,8 @@
 		};
 
 		favLink.appendChild($('i', {
-			id : 'fav-icon-' + business_id,
-			className : restaurant.is_visited ? 'fa fa-heart' : 'fa fa-heart-o'
+			id: 'fav-icon-' + business_id,
+			className: restaurant.is_visited ? 'fa fa-heart' : 'fa fa-heart-o'
 		}));
 
 		li.appendChild(favLink);

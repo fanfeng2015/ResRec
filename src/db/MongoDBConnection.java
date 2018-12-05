@@ -42,9 +42,9 @@ public class MongoDBConnection implements DBConnection {
 		}
 	}
 
-	// $pushAll doesn't check for duplicates, but simply append the array
-	// of business id to visited: [] of user with userId, that is actually why
-	// getVisitedRestaurants needs to use a set to handle duplicate restaurants
+	// $pushAll doesn't check for duplicates, but simply appends the array
+	// of business id, to visited: [], that is actually why getVisitedRestaurants
+	// needs to use a set to handle duplicate restaurants
 	@Override
 	public void setVisitedRestaurants(String userId, List<String> businessIds) {
 		db.getCollection("users").updateOne(new Document("user_id", userId),
@@ -62,7 +62,7 @@ public class MongoDBConnection implements DBConnection {
 	@Override
 	public Set<String> getVisitedRestaurants(String userId) {
 		Set<String> set = new HashSet<>();
-		// db.users.find({user_id:userId})
+		// db.users.find({user_id: userId})
 		FindIterable<Document> iterable = db.getCollection("users").find(new Document("user_id", userId));
 		if (iterable.first().containsKey("visited")) {
 			List<String> list = (List<String>) iterable.first().get("visited");
